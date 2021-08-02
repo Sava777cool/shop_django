@@ -10,12 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 #from django.core.management.utils import get_random_secret_key
-from pathlib import Path
+#from pathlib import Path
 
 import os
 import sys
 import dj_database_url
-#import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,8 +27,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'dsf457freguir4e34b6kj&cfR89-N8c+mj8*Cd8/+vsw186qw2+)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
+#DEBUG = True
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
+#ALLOWED_HOSTS = []
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mainapp',
+    'accounts.apps.AccountsConfig',
     'crispy_forms'
 ]
 
@@ -80,7 +83,15 @@ WSGI_APPLICATION = 'shop_django.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
+"""
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
 if DEVELOPMENT_MODE is True:
@@ -116,6 +127,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -128,6 +143,7 @@ USE_I18N = True
 
 USE_L10N = True
 
+#USE_TZ = True
 USE_TZ = False
 
 
@@ -139,9 +155,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-#STATICFILES_DIRS = [
+"""
+STATICFILES_DIRS = [
     #os.path.join(BASE_DIR, 'mainapp/static_dev/'),
-#]
-
+]
+"""
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
